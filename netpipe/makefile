@@ -80,7 +80,7 @@ MPI2CC   = mpicc
 MPI2_LIB =
 MPI2_INC =
 
-all:memcpy memcpy_avx memcpy_useavx mymemcpy_useavx mymemcpy
+all:memcpy memcpy_avx memcpy_useavx
 
 clean:
 	rm -f *.o NP* np.out
@@ -120,14 +120,6 @@ memcpy_avx: $(SRC)/memcpy.c $(SRC)/netpipe.c $(SRC)/netpipe.h
 memcpy_useavx: $(SRC)/memcpy.c $(SRC)/netpipe.c $(SRC)/netpipe.h
 	$(CC) $(CFLAGS) $(SRC)/netpipe.c $(SRC)/memcpy.c \
 	            -DMEMCPY -mavx2 -DUSE_AVX -o NPmemcpy_useavx -I$(SRC)
-							
-mymemcpy_useavx: $(SRC)/new_memcpy.c 
-	$(CC) $(CFLAGS) $(SRC)/new_memcpy.c \
-	            -mavx2 -DUSE_AVX -o mymemcpy_useavx -I$(SRC)
-							
-mymemcpy: $(SRC)/new_memcpy.c 
-	$(CC) $(CFLAGS) $(SRC)/new_memcpy.c \
-	            -mavx2 -o mymemcpy -I$(SRC)
 
 MP_memcpy: $(SRC)/memcpy.c $(SRC)/netpipe.c $(SRC)/netpipe.h $(SRC)/MP_memcpy.c
 	$(CC) $(CFLAGS) -mmmx -msse $(SRC)/netpipe.c $(SRC)/memcpy.c \
